@@ -4,5 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: bin
+    container_name: bin
     ports:
       - "8000:8000"
