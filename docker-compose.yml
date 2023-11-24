@@ -1,10 +1,25 @@
 version: '3'
+
+networks:
+  web:
+    external: true
+  internal:
+    external: false
+
 services:
   bin:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: bin
+    # build:
+    #   context: .
+      # dockerfile: Dockerfile
+    image: ivanhertanto/bin:latest
     container_name: bin
-    ports:
-      - "8000:8000"
+    labels:
+      - traefik.http.routers.bin.rule=Host(`ivan.click`, `www.ivan.click`)
+      - traefik.http.routers.bin.tls=true
+      - traefik.http.routers.bin.tls.certresolver=lets-encrypt
+      - traefik.port=8000
+    # ports:
+    #   - "8000:8000"
+    networks:
+      - web
+      - internal
